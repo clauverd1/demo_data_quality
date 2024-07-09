@@ -1,0 +1,32 @@
+[0m15:07:11.274135 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000020DCE7AF5D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000020DCE76FF10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000020DCE7AEE50>]}
+
+
+============================== 15:07:11.280515 | 6e476780-febe-4b07-b330-3f8ece069775 ==============================
+[0m15:07:11.280515 [info ] [MainThread]: Running with dbt=1.8.3
+[0m15:07:11.284009 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': 'C:\\Users\\clauverd\\.dbt', 'debug': 'False', 'version_check': 'True', 'log_path': 'logs', 'warn_error': 'None', 'fail_fast': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'None', 'quiet': 'False', 'no_print': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'introspect': 'True', 'log_format': 'default', 'invocation_command': 'dbt init', 'target_path': 'None', 'static_parser': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m15:07:22.849001 [debug] [MainThread]: Starter project path: C:\Users\clauverd\OneDrive - NTT DATA EMEAL\Documents\Progetti\Zurich\dbt_workspace\dbt_demo_venv\Lib\site-packages\dbt\include\starter_project
+[0m15:07:22.904184 [info ] [MainThread]: 
+Your new dbt project "zurich_demo_dq" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m15:07:22.906686 [info ] [MainThread]: Setting up your profile.
+[0m15:09:57.670118 [debug] [MainThread]: Spark adapter: Setting pyhive.hive logging to ERROR
+[0m15:09:57.672242 [debug] [MainThread]: Spark adapter: Setting thrift.transport logging to ERROR
+[0m15:09:57.673865 [debug] [MainThread]: Spark adapter: Setting thrift.protocol logging to ERROR
+[0m15:11:03.841018 [info ] [MainThread]: Profile zurich_demo_dq written to C:\Users\clauverd\.dbt\profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m15:11:03.844107 [debug] [MainThread]: Command `dbt init` succeeded at 15:11:03.843099 after 232.71 seconds
+[0m15:11:03.847416 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000020DB9A55710>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000020DB9C93690>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000020DCE75FE50>]}
+[0m15:11:03.848415 [debug] [MainThread]: Flushing usage events
+[0m15:11:04.334796 [debug] [MainThread]: Error sending anonymous usage statistics. Disabling tracking for this execution. If you wish to permanently disable tracking, see: https://docs.getdbt.com/reference/global-configs#send-anonymous-usage-stats.
