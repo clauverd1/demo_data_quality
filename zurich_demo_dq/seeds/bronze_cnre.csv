@@ -1,0 +1,11 @@
+﻿ID_customer_address,ID_customer,city,address,zip_code,state
+1,101,Zurich,Bergrain 32,10023,Switzerland
+2,102,Milan,Via Mazzini 5,21010,Italy
+3,103,New York,Columbus Street 15,100001,US
+4,104,Brasilia,Strada de Sao Paulo 128,67589,Brasil
+5,105,Kyoto,Matsumori 10-05,1049023,Japan
+6,106,Naples,Via Verdi 77,87598,Italy
+7,107,Rome,Via Pola 6,47689,Italy
+8,108,Sydney,Smith Avenue,8889990,Australia
+9,109,Berlin,Kirkestrasse 67,40392,Germany
+10,110,Turin,Via Principe Oddone 55,10147,Italy

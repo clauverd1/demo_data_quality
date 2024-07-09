@@ -1,0 +1,13 @@
+﻿ID_saldo,ID_costumer,bank_name,balance
+10,101,Intesa,100
+11,102,American Express,1000
+12,103,MontePaschi,10000
+13,104,Unicredit,200
+14,105,Deutsche Bank,2000
+15,106,Fineco,20000
+16,107,Unicredit,300
+17,108,Deutsche Bank,3000
+18,109,Fineco,30000
+19,110,Intesa,500
+15,106,Fineco,20000
+23,120,Deutsche Bank,-100
