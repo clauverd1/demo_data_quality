@@ -1,0 +1,94 @@
+version: 2
+
+models:
+  - name: silver_cn02
+    config:
+      materialized: incremental
+      unique_key:
+        - ID_customer
+      contract:
+        enforced: true
+      on_schema_change: fail
+    description: Customer master data table
+    columns:
+      - name: ID_customer
+        data_type: bigint
+        decription: Primary key (PK), id of the customer
+        constraints:
+          - type: primary_key
+        data_tests:
+          - not_null
+          - unique
+      - name: name
+        data_type: string
+        description: Name of the customer
+        data_tests:
+          - not_null
+      - name: surname
+        data_type: string
+        description: Surname of the customer
+        data_tests:
+          - not_null
+      - name: birth_date
+        data_type: string
+        description: Date of birth of the customer
+        data_tests:
+          - not_null
+      - name: birth_place
+        data_type: string
+        description: Place of birth of the customer
+        data_tests:
+          - not_null
+  - name: silver_cn06
+    config:
+      materialized: incremental
+      contract:
+        enforced: true
+      unique_key:
+        - ID_document
+      on_schema_change: fail
+    description: Document of the customer table
+    columns:
+      - name: ID_document
+        data_type: bigint
+        description: Primary key (PK), document's id of the customer
+        constraints:
+          - type: primary_key
+        data_tests:
+          - not_null
+          - unique
+      - name: ID_customer
+        data_type: bigint
+        description: Foreign key (FK), id of the customer (silver_cn02 - ID_customer)
+        constraints:
+          - type: foreign_key
+        data_tests:
+          - not_null
+          - unique
+          # ricordare di fare foreign key (FK) sull'ephemeral da scrivere in silver
+      - name: type
+        data_type: string
+        description: Type of the document (ID, passport)
+        data_tests:
+          - not_null
+          - unique
+      - name: expiration_date
+        data_type: string
+        description: Expiration date of the document
+        data_tests:
+          - not_null
+  - name: stg_bronze__cn02
+    config:
+      materialized: ephemeral
+    description: Ephemeral on the writing on silver layer
+    columns:
+      - name: ID_customer
+        data_tests:
+          - PK_constraints:
+              schema_silver_name: bronze
+              table_silver_name: silver_cn02
+              severity: error
+              config:
+                store_failures: true
+                store_failures_as: table
+                alias: PK_constraints_stg_bronze__cn02
