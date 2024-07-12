@@ -32,5 +32,10 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   zurich_demo_dq:
     # Config indicated by + and applies to all files under models/example/
-    example:
-      +materialized: view
+    silver:
+      +schema: dbt_demo_dq
+
+snapshots:
+  zurich_demo_dq:
+    silver:
+      +target_schema: dbt_demo_dq

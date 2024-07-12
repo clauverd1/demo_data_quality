@@ -1,0 +1,22 @@
+sources:
+  - name: bronze
+    schema: dbt_demo_dq
+    tables:
+      - name: bronze_cn02
+      - name: bronze_cn06
+      - name: bronze_cn07
+      - name: bronze_cnre
+      - name: bronze_QAMI
+      - name: bronze_saldo
+      - name: snap_silver_saldo
+  
+  - name: silver
+    schema: dbt_demo_dq
+    tables:
+      - name: silver_cn07
+
+  - name: failures
+    schema: dbt_test__audit
+    tables:
+      - name: pk_constraints_stg_bronze_cn02
+      - name: pk_constraints_stg_bronze_cn07

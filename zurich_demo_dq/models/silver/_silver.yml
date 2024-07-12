@@ -1,0 +1,161 @@
+
+models:
+  - name: stg_bronze__cn07
+    config: 
+      materialized: ephemeral
+    description: Tabella delle note anagrafiche
+    columns:
+      - name: ID_note
+        data_type: bigint
+        description: Primary key, id della nota
+        data_tests:
+          - not_null
+          - unique
+          - PK_constraints:
+              schema_silver_name: silver
+              table_silver_name: silver_cn07
+              config:
+                store_failures: true
+                store_failures_as: table
+                alias: PK_constraints_violated_bronze_cn07
+
+      - name: ID_customer
+        data_type: bigint
+        description: id della persona a cui è associata la nota
+        data_tests: 
+          - not_null
+          - relationships:
+              to: source('bronze', 'bronze_cn02')
+              field: ID_customer
+      - name: marital_status
+        data_type: string
+        description: stato civile. Può essere [Sposato, Nubile, Celibe, Vedovo] 
+        data_tests: 
+          - not_null
+      - name: age
+        data_type: bigint
+        description: età della persona 
+        data_tests: 
+          - not_null
+      - name: email
+        data_type: string
+        description: email del cliente
+        data_tests: 
+          - not_null
+
+  - name: silver_cn07
+    config: 
+      materialized: incremental
+      unique_key: 
+        - 'ID_note'
+      contract:
+        enforced: true
+      on_schema_change: fail
+    description: Tabella delle note anagrafiche
+    columns:
+      - name: ID_note
+        data_type: bigint
+        description: Primary key, id della nota
+        constraints:
+          - type: primary_key
+          - type: not_null
+        data_tests:
+          - not_null
+          - unique
+      - name: ID_customer
+        data_type: bigint
+        description: id della persona a cui è associata la nota
+        data_tests: 
+          - not_null
+      - name: marital_status
+        data_type: string
+        description: stato civile. Può essere [Sposato, Nubile, Celibe, Vedovo] 
+        data_tests: 
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              value_set: ['sposato','nubile','celibe', 'vedovo']
+      - name: age
+        data_type: bigint
+        description: età della persona 
+        data_tests: 
+          - not_null
+      - name: email
+        data_type: string
+        description: email del cliente
+        data_tests: 
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+              regex: "[a-zA-Z0-9._%+-]{1,50}@[a-zA-Z0-9.-]{1,30}.[a-z]{2,3}$"
+
+  - name: silver_saldo
+    config: 
+      materialized: incremental
+      unique_key: 
+        - 'ID_saldo'
+      contract:
+        enforced: true
+      on_schema_change: fail
+    description: Tabella dei saldi bancari
+    columns:
+      - name: ID_saldo
+        data_type: bigint
+        description: ID del saldo 
+        constraints:
+          - type: not_null
+        data_tests:
+          - not_null
+          - unique
+      - name: ID_customer
+        data_type: bigint
+        description: id della persona a cui è associata la nota
+        constraints:
+          - type: not_null
+          - type: check
+            expression: "ID_customer in (select ID_customer from `catalog-zurich-01`.dbt_demo_dq.silver_cn02)"
+        data_tests:
+          - not_null
+      - name: bank_name
+        data_type: string
+        description: Nome della banca  
+        constraints:
+          - type: not_null
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['Fineco', 'Unicredit', 'Intesa', 'Deutsche', 'American Express', 'MontePaschi']
+      - name: balance
+        data_type: bigint
+        description: somma complessiva del saldo
+        constraints:
+          - type: not_null
+      - name: IBAN
+        data_type: string
+        description: IBAN del conto bancario. Da controllare con regex (unit test)
+        constraints:
+          - type: not_null
+
+  - name: stg_bronze__saldo
+    config: 
+      materialized: ephemeral
+    description: Tabella dei saldi bancari
+    columns:
+      - name: ID_saldo
+        data_type: bigint
+        description: ID del saldo 
+      - name: ID_customer
+        data_type: bigint
+        description: id della persona a cui è associata la nota
+      - name: bank_name
+        data_type: string
+        description: Nome della banca  
+      - name: balance
+        data_type: bigint
+        description: somma complessiva del saldo
+      - name: IBAN
+        data_type: string
+        description: IBAN del conto bancario. Da controllare con regex (unit test)
+      - name: ingestion_date
+        data_type: date
+        description: data di ingestione del dato
+
+  

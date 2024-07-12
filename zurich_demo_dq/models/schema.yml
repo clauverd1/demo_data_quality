@@ -1,0 +1,5 @@
+models:
+  - name: PK_incremental
+    config: 
+      materialized: incremental
+      
