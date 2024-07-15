@@ -1,0 +1,10 @@
+sources:
+  - name: bronze
+    schema: dbt_demo_dq
+    tables:
+      - name: bronze_cn02
+      - name: bronze_cn06
+      - name: bronze_cn07
+      - name: bronze_cnre
+      - name: bronze_qami
+      - name: bronze_saldo

@@ -1,0 +1,99 @@
+
+version: 2
+
+models:
+  - name: stg_bronze__new_qami
+    
+    description: New incoming data for customers' jobs description table.
+
+    columns:
+      - name: ID_profession
+        data_type: bigint
+        description: Progressive ID
+        data_tests:
+            - not_null
+
+      - name: ID_customer
+        data_type: bigint
+        description: Foreign key silver_cn02, customer id
+        data_tests:
+            - unique
+            - not_null
+            - relationships:
+                to: ref('silver_cn02_cancellare')
+                field: ID_customer
+
+      - name: description
+        data_type: string
+        description: Job definition
+        data_tests:
+            - not_null
+      
+      - name: ingestion_date
+        data_type: date
+        description: Date of ingestion
+        data_tests:
+            - not_null
+
+  - name: stg_bronze__new_cnre
+
+    description: New incoming data for Customers' address table.
+
+    columns:
+      - name: ID_customer_address
+        data_type: bigint
+        description: Progressive id
+        data_tests:
+          - not_null
+
+      - name: ID_customer
+        data_type: bigint
+        description: Foreign key silver_cn02, customer id
+        data_tests:
+            - unique
+            - not_null
+            - relationships:
+                to: ref('silver_cn02_cancellare')
+                field: ID_customer
+                config: 
+                    store_failures: true
+                    store_failures_as: table
+                    alias: relationships_stg_bronze__new_cnre_cn02
+            - relationships:
+                to: ref('silver_cn07_cancellare')
+                field: ID_customer
+                config: 
+                    store_failures: true
+                    store_failures_as: table
+                    alias: relationships_stg_bronze__new_cnre_cn07
+      - name: city
+        data_type: string
+        description: Customers' cities
+        data_tests:
+            - not_null
+      
+      - name: address
+        data_type: string
+        description: Customers' street addresses
+        data_tests:
+          - not_null
+      
+      - name: zip_code
+        data_type: bigint
+        description: Address zip code
+        data_tests:
+          - not_null
+
+      - name: state
+        data_type: string
+        description: Customers' states
+        data_tests:
+          - not_null
+
+      - name: ingestion_date
+        data_type: date
+        description: Date of ingestion
+        data_tests:
+          - not_null
+
+
